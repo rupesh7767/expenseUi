@@ -32,7 +32,7 @@ const ExpenseForm = () => {
 
     console.log(expenseData);
 
-    fetch('http://localhost:8080/saveExpenses', {
+    fetch('https://expense-api-dtoy.onrender.com/saveExpenses', {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'

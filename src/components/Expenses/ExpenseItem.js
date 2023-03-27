@@ -17,10 +17,13 @@ const ExpensItem =(props) =>{
         title : title,
         amount : amount,
         date: date
+        
     }
+    //global : https://expense-api-dtoy.onrender.com/deleteExpensesByTitle
+    //local : http://localhost:8080/deleteExpensesByTitle
     console.log("Delete command triggered!!!!!")
         fetch(
-            "http://localhost:8080/deleteExpensesByTitle",{
+            "https://expense-api-dtoy.onrender.com/deleteExpensesByTitle",{
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

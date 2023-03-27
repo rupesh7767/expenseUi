@@ -11,7 +11,7 @@ function Expenses(props) {
         // http://localhost:8080/getExpenses
         //https://expense-api-dtoy.onrender.com/getExpenses
             fetch(
-                "http://localhost:8080/getExpenses")
+                "https://expense-api-dtoy.onrender.com/getExpenses")
             .then((response) => response.json())
             .then((data) => setExpense(data));;
     }
