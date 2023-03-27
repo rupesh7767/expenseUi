@@ -1,71 +1,85 @@
+import React, { useState } from 'react';
 
 import './ExpenseForm.css';
 
-import { Form , handleSubmit } from "react-bootstrap";
+const ExpenseForm = () => {
 
-import React from 'react';
+  const [enteredTitle, setEnteredTitle] = useState('');
+  const [enteredAmount, setEnteredAmount] = useState('');
+  const [enteredDate, setEnteredDate] = useState('');
 
-class ExpenseForm extends React.Component{
+  const titleChangeHandler = (event) => {
+    setEnteredTitle(event.target.value);
+  }
 
-    constructor(props) {
-        super(props);
-        this.state = { title:''};
-      }
+  const dateChangeHandler = (event) => {
+    setEnteredDate(event.target.value);
+  }
 
-      handleChange = (event) => {
-        this.setState({[event.target.name]: event.target.value});
-      }
+  const amountChangeHandler = (event) => {
+    setEnteredAmount(event.target.value);
+  }
 
-     refreshPage =() =>{
-        window.location.reload(false);
-      }
+  const submitHandler = (event) => {
+    // https://expense-api-dtoy.onrender.com/saveExpenses
+    //http://localhost:8080/saveExpenses
 
-     handleSubmit = (event) => {
-    
-        fetch('https://expense-api-dtoy.onrender.com/saveExpenses', {
-            headers : { 
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-               },
-            method: 'POST',
-            // We convert the React state to JSON and send it as the POST body
-            body: JSON.stringify(this.state)
-          }).then(function(response) {
-            console.log(response)
-            return response.json();
-          });
-     
-        event.preventDefault();
-    }
+    const expenseData = {
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: new Date(enteredDate)
+    };
 
-    render(){
-        return(
-            <Form onSubmit={this.handleSubmit}>
-            <div className='new-expense__controls'>
-            <div className='new-expense__control'>
-            <label>Title</label>
-            <input type='text'  name ="title" value={this.state.value} onChange={this.handleChange}/>
-            </div>
-    
-            <div className='new-expense__control'>
-            <label>Amount</label>
-            <input type='number' name="amount" min="0.01" step="0.01" value={this.state.value} onChange={this.handleChange}/>
-            </div>
-    
-            <div className='new-expense__control'>
-            <label>Date</label>
-            <input type='Date' min="2019-01-01" name="date" max="2023-12-31" value={this.state.value} onChange={this.handleChange}/>
-            </div>
-    
-            </div>
-    
-            <div className='new-expense_actions'>
-            <button type='submit' onClick={this.refreshPage} > Add Expenses</button>
-            </div>
-            </Form>
-        )
-    }
-   
-}
+    console.log(expenseData);
+
+    fetch('http://localhost:8080/saveExpenses', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      method: 'POST',
+      // We convert the React state to JSON and send it as the POST body
+      body: JSON.stringify(expenseData)
+    }).then(function (response) {
+      console.log(response)
+      return response.json();
+    });
+
+  };
+
+  return (
+    <form onSubmit={submitHandler}>
+      <div className='new-expense__controls'>
+        <div className='new-expense__control'>
+          <label>Title</label>
+          <input type='text'  value ={enteredTitle} onChange={titleChangeHandler} />
+        </div>
+        <div className='new-expense__control'>
+          <label>Amount</label>
+          <input
+            type='number'
+            min='0.01'
+            step='0.01'
+            value={enteredAmount}
+            onChange={amountChangeHandler}
+          />
+        </div>
+        <div className='new-expense__control'>
+          <label>Date</label>
+          <input
+            type='date'
+            min='2019-01-01'
+            max='2022-12-31'
+            value={enteredDate}
+            onChange={dateChangeHandler}
+          />
+        </div>
+      </div>
+      <div className='new-expense__actions'>
+        <button type='submit'>Add Expense</button>
+      </div>
+    </form>
+  );
+};
 
 export default ExpenseForm;

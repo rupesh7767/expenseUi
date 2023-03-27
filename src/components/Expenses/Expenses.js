@@ -1,13 +1,17 @@
 
 import ExpensItem from "./ExpenseItem";
 import React, { useEffect, useState } from "react";
+import { Card } from "react-bootstrap";
 
 function Expenses(props) {
 
     const [expense , setExpense] = useState([]);
     const fetchData = ()=>{
+        //TO fetch the details
+        // http://localhost:8080/getExpenses
+        //https://expense-api-dtoy.onrender.com/getExpenses
             fetch(
-                "https://expense-api-dtoy.onrender.com/getExpenses")
+                "http://localhost:8080/getExpenses")
             .then((response) => response.json())
             .then((data) => setExpense(data));;
     }
@@ -20,6 +24,7 @@ function Expenses(props) {
 
     return (        
         <div>
+            <Card className="expenses">
             {expense && expense.length >0 && expense.map((expense , index) => (
                 <li key={index}>
                 {<ExpensItem title={expense.title}
@@ -29,6 +34,7 @@ function Expenses(props) {
                 </li>
             ))
             }
+            </Card>
         </div>
     );
 }
