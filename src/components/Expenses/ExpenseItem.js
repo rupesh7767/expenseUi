@@ -19,11 +19,11 @@ const ExpensItem =(props) =>{
         date: date
         
     }
-    //global : https://expense-api-dtoy.onrender.com/deleteExpensesByTitle
-    //local : http://localhost:8080/deleteExpensesByTitle
+    //const url="https://expense-api-dtoy.onrender.com/deleteExpensesByTitle";
+    const url = "http://localhost:8080/deleteExpensesByTitle";
     console.log("Delete command triggered!!!!!")
-        fetch(
-            "https://expense-api-dtoy.onrender.com/deleteExpensesByTitle",{
+        fetch( url,
+            {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -43,20 +43,31 @@ const ExpensItem =(props) =>{
           })
 
           window.location.reload(false); 
-
-     
     }
 
-    return (
-        <Card className="expense-item">
+    const dateFormate = props.date.split("-");
+
+    const month = dateFormate[1];
+    const year = dateFormate[0];
+    //const date = dateFormate[2].split("T");
+
+
+    {
+        if(year === props.year || "All" === props.year){
+            return (
+            <Card className="expense-item">    
             <ExpenseDate date={props.date}/>
             <div className='expense-item__description'>
                 <h2>{title}</h2>
                 <div className='expense-item__price'> <span>&#8377;</span>{props.amount}</div>
             </div>
             <button className='expense-item__price' type='submit' onClick={handleDelete}>Delete</button>
-        </Card>
-    );
+                </Card>
+            );
+        }
+    }
+
+   
 }
 
 export default ExpensItem;

@@ -21,8 +21,8 @@ const ExpenseForm = () => {
   }
 
   const submitHandler = (event) => {
-    // https://expense-api-dtoy.onrender.com/saveExpenses
-    //http://localhost:8080/saveExpenses
+    //const url = "https://expense-api-dtoy.onrender.com/saveExpenses";
+    const url = "http://localhost:8080/saveExpenses";
 
     const expenseData = {
       title: enteredTitle,
@@ -32,7 +32,7 @@ const ExpenseForm = () => {
 
     console.log(expenseData);
 
-    fetch('https://expense-api-dtoy.onrender.com/saveExpenses', {
+    fetch(url, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -68,8 +68,8 @@ const ExpenseForm = () => {
           <label>Date</label>
           <input
             type='date'
-            min='2019-01-01'
-            max='2022-12-31'
+            min='2021-01-01'
+            max='2023-12-31'
             value={enteredDate}
             onChange={dateChangeHandler}
           />
