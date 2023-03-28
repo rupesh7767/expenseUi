@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 
 const Expenses = (props) => {
 
-    const [filteredYear, setFilteredYear] = useState('2022');
+    const [filteredYear, setFilteredYear] = useState('All');
     const [expense, setExpense] = useState([]);
 
     const fetchData = () => {
